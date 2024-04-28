@@ -100,7 +100,7 @@ function displayList(products) {
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
 
-        checkbox.checked = product.isMarked;
+        checkbox.checked = product.isChecked;
         checkbox.onclick = function () {
             editItem(product.id).then(r => r);
         };
