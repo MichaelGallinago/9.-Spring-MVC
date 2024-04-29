@@ -1,28 +1,24 @@
 const apiUrl = '/items';
 
-// Получение списка продуктов
+
 async function getItems() {
     try {
-        //Шлём get-запрос на /items (метод fetch() по умолчанию отправляет GET-запрос)
-        // и получаем список продуктов в виде JSON-а из метода getItemList() в controller-е
         let response = await fetch(apiUrl);
-        //в ответе получили список JSON-ов, а здесь сделали из них обьекты
         return await response.json();
     } catch (error) {
         console.log(error);
     }
 }
 
-//Создание нового продукта
+
 async function addItem() {
-    //Получаем имя нового продукта из Input-а, то есть то, что записано в поле
     let newItemName = document.getElementById("new_item_name").value;
 
     try {
         let response = await fetch(apiUrl, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
-            }, //То что в фигурных - аннонимный обьект, с единственным свойством name
+            },
             //JSON.stringify - преобразует обьект в json
             body: JSON.stringify({name: newItemName})
         });
@@ -40,10 +36,8 @@ async function addItem() {
     }
 }
 
-// Удаление продукта
 async function deleteItem(id) {
     try {
-        //encodeURIComponent(id) - кодирует специальные символы в URL-адресе
         let response = await fetch(apiUrl + '/' + encodeURIComponent(id), {method: 'DELETE'});
 
         if (!response.ok) {
@@ -59,7 +53,6 @@ async function deleteItem(id) {
     }
 }
 
-// Изменение продукта
 async function editItem(id) {
     try {
         //encodeURIComponent(id) - кодирует специальные символы в URL-адресе
@@ -77,10 +70,8 @@ async function editItem(id) {
     }
 }
 
-// Отображение списка продуктов
 function displayList(products) {
     let list = document.getElementById("list");
-    //чистим свойство innerHTML, чтобы удалить все предыдущие элементы из списка.
     list.innerHTML = "";
 
     for (let i = 0; i < products.length; i++) {
@@ -110,7 +101,6 @@ function displayList(products) {
     }
 }
 
-// Обновление списка продуктов на странице при загрузке
 getItems().then(data => {
     displayList(data);
 });

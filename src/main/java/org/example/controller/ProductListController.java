@@ -20,7 +20,6 @@ public class ProductListController {
         return HttpStatus.OK;
     }
 
-    // Спринг сам приобразовывает возвращаемую коллекцию в JSON-массив и добавляет его в тело http-ответа
     @GetMapping("/items")
     public Iterable<Product> getItemList() {
         return productService.getProductList();
